@@ -4,18 +4,26 @@ import { AuthContext } from "../providers/AuthProvider";
 
 const Navbar = () => {
 
-    const {user, logOut} = useContext(AuthContext)
+    const { user, logOut } = useContext(AuthContext)
 
     const navLinks =
         <>
             <li><NavLink to={`/`}>Home</NavLink> </li>
             <li><NavLink to={`/login`}>Login</NavLink> </li>
             <li><NavLink to={`/register`}>Register</NavLink> </li>
+            <li><NavLink to={`/orders`}>Orders</NavLink> </li>
+            {
+                user &&
+                <>
+                    <li><NavLink to={`/dashboard`}>Dashboard</NavLink> </li>
+                    <li><NavLink to={`/profile`}>Profile</NavLink> </li>
+                </>
+            }
         </>
 
-    const handleLogOut = () =>{
+    const handleLogOut = () => {
         logOut()
-            .then(()=> console.log("user logged out successfully"))
+            .then(() => console.log("user logged out successfully"))
             .catch(error => console.log(error.message))
     }
 
@@ -40,13 +48,13 @@ const Navbar = () => {
                 </div>
                 <div className="navbar-end">
                     {
-                        user ? 
-                        <>
-                             <span>{user.email}</span>
-                             <a onClick={handleLogOut} className="btn btn-sm capitalize ml-2">Sign out</a>
-                        </>
-                        :
-                        <Link to={`/login`} className="btn btn-sm capitalize ml-2">Login</Link>
+                        user ?
+                            <>
+                                <span>{user.email}</span>
+                                <a onClick={handleLogOut} className="btn btn-sm capitalize ml-2">Sign out</a>
+                            </>
+                            :
+                            <Link to={`/login`} className="btn btn-sm capitalize ml-2">Login</Link>
                     }
                 </div>
             </div>
